@@ -33,61 +33,44 @@ Returns an array of companies where the name or symbol contains the text in the 
 [
     {
         "description": "TESLA INC",
-        "displaySymbol": "TSLA",
         "symbol": "TSLA"
     }
 ]
 ```
 
-### Get Price info for a Symbol
+### Get price for one or more symbols
 
-- **URL:** /quote/[symbol]
+- **Single Quote URL:** /quote?symbol=[symbol]
+- **Multi Quote URL:** /quote?symbol=[symbol]&symbol=[symbol]
 - **Method:** GET
 
-**Example:** /quote/tsla
+**Example:** /quote?symbol=tsla&symbol=aapl
+
+```
+[
+    {
+        "symbol": "TSLA",
+        "price": 815.56,
+        "previousPrice": 808.01,
+        "currency": "USD"
+    },
+    {
+        "symbol": "AAPL",
+        "price": 319.23,
+        "previousPrice": 313.14,
+        "currency": "USD"
+    }
+]
+```
+
+**Error response**
+
+If one of the symbols does not exist, the response will fail with a status code of 400 and a response containing the failed symbol.
 
 ```
 {
-    "price": {
-        "maxAge": 1,
-        "preMarketChangePercent": -0.035671502,
-        "preMarketChange": -29.23,
-        "preMarketTime": "2020-05-11T13:29:57.000Z",
-        "preMarketPrice": 790.19,
-        "preMarketSource": "FREE_REALTIME",
-        "postMarketChangePercent": -0.0049180817,
-        "postMarketChange": -3.9899902,
-        "postMarketTime": "2020-05-11T20:53:58.000Z",
-        "postMarketPrice": 807.3,
-        "postMarketSource": "DELAYED",
-        "regularMarketChangePercent": -0.009921658,
-        "regularMarketChange": -8.130005,
-        "regularMarketTime": "2020-05-11T20:00:02.000Z",
-        "priceHint": 2,
-        "regularMarketPrice": 811.29,
-        "regularMarketDayHigh": 824,
-        "regularMarketDayLow": 785,
-        "regularMarketVolume": 16172840,
-        "regularMarketPreviousClose": 819.42,
-        "regularMarketSource": "FREE_REALTIME",
-        "regularMarketOpen": 790.51,
-        "exchange": "NMS",
-        "exchangeName": "NasdaqGS",
-        "exchangeDataDelayedBy": 0,
-        "marketState": "POST",
-        "quoteType": "EQUITY",
-        "symbol": "TSLA",
-        "underlyingSymbol": null,
-        "shortName": "Tesla, Inc.",
-        "longName": "Tesla, Inc.",
-        "currency": "USD",
-        "quoteSourceName": "Delayed Quote",
-        "currencySymbol": "$",
-        "fromCurrency": null,
-        "toCurrency": null,
-        "lastMarket": null,
-        "marketCap": 150389637120
-    }
+    "symbol": "AAPLS",
+    "message": "Quote not found for ticker symbol: AAPLS"
 }
 ```
 
